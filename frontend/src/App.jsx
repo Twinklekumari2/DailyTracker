@@ -9,8 +9,8 @@ const App = () => {
     <div>
       <ToastContainer/>
       <Routes>
-        <Route path='/' element={<HomePage/>}/>
-        <Route path='/login' element={<Login/>}/>
+        <Route path='/notes' element={<HomePage/>}/>
+        <Route path='/' element={<Login/>}/>
       </Routes>
     </div>
   )
