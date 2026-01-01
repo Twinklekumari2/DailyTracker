@@ -36,7 +36,7 @@ const Login = () => {
       });
       console.log(res.data);
       localStorage.setItem("token", res.data.token)
-      navigate('/')
+      navigate('/notes')
     } catch (err) {
       console.error(err.response?.data || err.message);
     }
