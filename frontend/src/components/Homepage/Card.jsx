@@ -33,7 +33,7 @@ const Card = () => {
             } border`}
         >
           {/* Date */}
-          <div className="text-sm font-extrabold text-gray-900 mb-2">
+          <div className="text-sm font-extrabold text-gray-900 mb-2 border-2">
             {new Date(note.date).toLocaleDateString()}
           </div>
 
