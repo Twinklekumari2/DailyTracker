@@ -6,9 +6,12 @@ const Card = () => {
 
   useEffect(() => {
     const getNotes = async () => {
+        const token = localStorage.getItem("token");
       try {
         const res = await api.get("/user/notes", {
-          withCredentials: true,
+          headers:{
+            Authorization: `Bearer ${token}`
+          }
         });
         setNotes(res.data.response);
         console.log(res.data.response)

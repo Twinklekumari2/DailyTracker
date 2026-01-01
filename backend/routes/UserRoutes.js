@@ -18,13 +18,6 @@ router.post("/signup", async (req, res) => {
     const token = generateToken(payload);
     console.log("Token is: ", token);
 
-    res.cookie("token", token, {
-      httpOnly: true, // 🔐 not accessible via JS
-      secure: true, // true in production (HTTPS)
-      sameSite: "none", // CSRF protection
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-    });
-
     res.status(200).json({ response: response, token: token });
   } catch (err) {
     console.log(err);
@@ -47,12 +40,6 @@ router.post("/login", async (req, res) => {
       id: user.id,
     };
     const token = generateToken(payload);
-    res.cookie("token", token, {
-      httpOnly: true, // 🔐 not accessible via JS
-      secure: true, // true in production (HTTPS)
-      sameSite: "none", // CSRF protection
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-    });
     console.log("Token is: ", token);
     res.status(200).json({ token: token, message: "login successfully" });
   } catch (err) {

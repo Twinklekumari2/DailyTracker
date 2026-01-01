@@ -14,9 +14,6 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const PORT = process.env.PORT || 3000;
 
-const cookieParser = require("cookie-parser");
-app.use(cookieParser());
-
 const userRoutes = require('././routes/UserRoutes')
 app.use('/user', userRoutes)
 

@@ -26,15 +26,15 @@ const Input = ({setShowNotes}) => {
       toast.error("Notes cannot be empty");
       return;
     }
-
+    const token = localStorage.getItem("token")
     try {
       const url = "/user/notes";
       const res = await api.post(url, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      });
+           headers:{
+            Authorization:`Bearer ${token}`
+           }
+      }
+      );
 
       console.log(res.data);
       setShowNotes(false);

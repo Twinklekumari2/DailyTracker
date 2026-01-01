@@ -35,6 +35,7 @@ const Login = () => {
         withCredentials:true,
       });
       console.log(res.data);
+      localStorage.setItem("token", res.data.token)
       navigate('/')
     } catch (err) {
       console.error(err.response?.data || err.message);

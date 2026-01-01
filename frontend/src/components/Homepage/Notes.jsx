@@ -8,10 +8,13 @@ const Notes = () => {
   const [showNotes, setShowNotes] = useState(false);
   useEffect(() => {
     const getData = async () => {
+        const token = localStorage.getItem("token");
       try {
         const url = "/user/name";
         const res = await api.get(url,{
-          withCredentials: true,
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
         });
         setData(res.data.response);
         console.log(res.data.response);
