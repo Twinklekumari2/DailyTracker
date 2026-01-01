@@ -1,11 +1,11 @@
+require('dotenv').config();
 const express = require('express')
 const app = express();
 const db = require('./db');
-require('dotenv').config();
 const cors = require('cors'); 
 
 app.use(cors({
-    origin: ["https://daily-tracker-eight-iota.vercel.app/","http://localhost:5173"],
+    origin: ["https://daily-tracker-eight-iota.vercel.app","http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true
 }));
