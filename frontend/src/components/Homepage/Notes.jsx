@@ -10,7 +10,9 @@ const Notes = () => {
     const getData = async () => {
       try {
         const url = "/user/name";
-        const res = await api.get(url);
+        const res = await api.get(url,{
+          withCredentials: true,
+        });
         setData(res.data.response);
         console.log(res.data.response);
       } catch (err) {
