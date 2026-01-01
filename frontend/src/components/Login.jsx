@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { api } from "./../api";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+    const navigate = useNavigate();
   const [form, setForm] = useState({
     userName: "",
     password: "",
@@ -32,6 +34,7 @@ const Login = () => {
         },
       });
       console.log(res.data);
+      navigate('/')
     } catch (err) {
       console.error(err.response?.data || err.message);
     }
