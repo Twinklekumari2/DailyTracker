@@ -20,8 +20,8 @@ router.post("/signup", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true, // 🔐 not accessible via JS
-      secure: false, // true in production (HTTPS)
-      sameSite: "lax", // CSRF protection
+      secure: true, // true in production (HTTPS)
+      sameSite: "none", // CSRF protection
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
@@ -49,8 +49,8 @@ router.post("/login", async (req, res) => {
     const token = generateToken(payload);
     res.cookie("token", token, {
       httpOnly: true, // 🔐 not accessible via JS
-      secure: false, // true in production (HTTPS)
-      sameSite: "lax", // CSRF protection
+      secure: true, // true in production (HTTPS)
+      sameSite: "none", // CSRF protection
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     console.log("Token is: ", token);
