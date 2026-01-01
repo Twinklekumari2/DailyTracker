@@ -17,7 +17,7 @@ const notesSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:["done", "pending"],
+        enum:["Done", "Pending"],
         required:true,
     }
 })
