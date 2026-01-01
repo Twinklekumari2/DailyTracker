@@ -14,6 +14,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const PORT = process.env.PORT || 4000;
 
+const userRoutes = require('././routes/UserRoutes')
+app.use('/user', userRoutes)
+
 app.listen(PORT, () => {
     console.log('Server is running on port', PORT)
 })

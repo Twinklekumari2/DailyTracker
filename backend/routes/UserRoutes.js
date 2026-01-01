@@ -29,7 +29,7 @@ router.post('/login', async (req, res) => {
     try{
         const {userName, password} = req.body;
         console.log("Login attempt:", userName, password);
-        const user = await User.findOne({userName: email});
+        const user = await User.findOne({userName: userName});
         console.log("Login attempt:", userName, password);
 
         if(!user || !(await user.comparePassword(password))){
