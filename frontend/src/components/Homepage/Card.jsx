@@ -30,7 +30,7 @@ const Card = () => {
           key={note._id}
           className={`rounded-xl p-5 shadow-lg transition transform hover:scale-105 
             ${
-              note.status === "done"
+              note.status === "Done"
                 ? "bg-green-200 border-green-500"
                 : "bg-red-200 border-red-500"
             } border`}
@@ -49,7 +49,7 @@ const Card = () => {
           <div
             className={`inline-block px-3 py-1 text-sm font-semibold rounded-full 
               ${
-                note.status === "done"
+                note.status === "Done"
                   ? "bg-green-500 text-white"
                   : "bg-red-500 text-white"
               }`}
