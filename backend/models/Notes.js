@@ -19,6 +19,10 @@ const notesSchema = new mongoose.Schema({
         type:String,
         enum:["Done", "Pending"],
         required:true,
+    },
+    isCounted:{
+        type:Boolean,
+        default:false,
     }
 })
 const Notes = mongoose.model('notes', notesSchema);

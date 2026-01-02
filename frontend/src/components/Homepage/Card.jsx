@@ -6,10 +6,10 @@ const Card = () => {
 
   useEffect(() => {
     const getNotes = async () => {
-        const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
       try {
         const res = await api.get("/user/notes", {
-          headers:{
+          headers: {
             Authorization: `Bearer ${token}`
           }
         });
@@ -23,38 +23,46 @@ const Card = () => {
     getNotes();
   }, []);
 
+  if(!notes) return <p>Loading...</p>
+
   return (
-    <div className="p-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+    /* Improved grid responsiveness and outer padding */
+    <div className="p-4 sm:p-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
       {notes.map((note) => (
         <div
           key={note._id}
-          className={`rounded-xl p-5 shadow-lg transition transform hover:scale-105 
+          className={`
+            relative flex flex-col justify-between
+            rounded-2xl p-6 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1
+            border-l-4 
             ${
               note.status === "Done"
-                ? "bg-green-200 border-green-500"
-                : "bg-red-200 border-red-500"
-            } border`}
+                ? "bg-green-50 border-green-500"
+                : "bg-red-50 border-red-500"
+            }
+          `}
         >
-          {/* Date */}
-          <div className="text-sm font-extrabold text-gray-900 mb-2 border-2">
-            {new Date(note.date).toLocaleDateString()}
+          <div>
+            <div className="text-xl font-extrabold uppercase tracking-wider text-black mb-2">
+              {new Date(note.date).toLocaleDateString()}
+            </div>
+
+            <div className="text-base font-semibold text-gray-800 mb-4 leading-relaxed line-clamp-3">
+              {note.notes}
+            </div>
           </div>
 
-          {/* Notes */}
-          <div className="text-lg font-medium text-gray-900 mb-3">
-            {note.notes}
-          </div>
-
-          {/* Status */}
-          <div
-            className={`inline-block px-3 py-1 text-sm font-semibold rounded-full 
-              ${
-                note.status === "Done"
-                  ? "bg-green-500 text-white"
-                  : "bg-red-500 text-white"
-              }`}
-          >
-            {note.status}
+          <div className="flex mt-auto">
+            <span
+              className={`px-3 py-1 text-xs font-bold rounded-lg shadow-sm
+                ${
+                  note.status === "Done"
+                    ? "bg-green-500 text-white"
+                    : "bg-red-500 text-white"
+                }`}
+            >
+              {note.status}
+            </span>
           </div>
         </div>
       ))}

@@ -1,41 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../../api";
 import Input from "./Input";
-import Card from "./Card";
+import calendar from "./../../assets/calendar.png";
+import Calendar from "./Calendar";
 
 const Notes = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const [showNotes, setShowNotes] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
+
   useEffect(() => {
     const getData = async () => {
-        const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
       try {
-        const url = "/user/name";
-        const res = await api.get(url,{
-            headers:{
-                Authorization: `Bearer ${token}`
-            }
+        const res = await api.get("/user/name", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
         setData(res.data.response);
-        console.log(res.data.response);
       } catch (err) {
         console.log(err);
       }
     };
     getData();
   }, []);
-  const handleNoteClick = () => {
-    setShowNotes((prev) => !prev);
-  }
+
   return (
-    <section className="flex flex-col items-center">
-      <div className="flex justify-between items-center font-extrabold text-3xl mt-3 py-2 px-4 mb-4">
+    <section className="relative flex flex-col items-center">
+      
+      {/* Header */}
+      <div className="flex items-center gap-6 font-extrabold text-3xl mt-5">
         <h1>Welcome, {data.userName}</h1>
+
+        <button
+          onClick={() => setShowCalendar((prev) => !prev)}
+          className="hover:scale-110 transition-transform"
+        >
+          <img src={calendar} alt="calendar" className="h-10 w-10" />
+        </button>
       </div>
-      <div className="px-3 py-1 cursor-pointer rounded-2xl bg-pink-300">
-        <h3 onClick={handleNoteClick}>Add Notes</h3>
+
+      {/* Calendar popup */}
+      {showCalendar && <Calendar />}
+
+      {/* Add Notes */}
+      <div
+        onClick={() => setShowNotes((prev) => !prev)}
+        className="mt-6 px-6 py-2 cursor-pointer rounded-full bg-pink-400 text-white font-semibold hover:bg-pink-500 transition"
+      >
+        Add Notes
       </div>
-      {showNotes && <Input setShowNotes={setShowNotes}/>}
+
+      {showNotes && <Input setShowNotes={setShowNotes} />}
     </section>
   );
 };

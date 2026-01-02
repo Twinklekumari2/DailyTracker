@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("./../models/User");
 const { generateToken, jwtAuthMiddleWare } = require("./../auth");
 const Notes = require("../models/Notes");
+const Calendar = require("../models/Calendar");
 
 router.post("/signup", async (req, res) => {
   try {
@@ -75,21 +76,50 @@ router.post("/notes", jwtAuthMiddleWare, async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
-
 router.get("/notes", jwtAuthMiddleWare, async (req, res) => {
   try {
     const userId = req.user.id;
-    const notes = await Notes.find({user:userId}).sort({date:-1});
+    const notes = await Notes.find({ user: userId }).sort({ date: -1 });
 
     if (notes.length === 0) {
-      return res.status(200).json({ message: "Empty", response:[] });
+      return res.status(200).json({ message: "Empty", response: [] });
     }
 
     res.status(200).json({ message: "Fetched successfully", response: notes });
   } catch (err) {
-    res.status(500).json({error:"Internal server error"})
+    res.status(500).json({ error: "Internal server error" });
   }
 });
+router.get("/months", jwtAuthMiddleWare, async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const notes = await Notes.find({ user: userId }).sort({ date: -1 });
+
+    let calendar = await Calendar.findOne({ user: userId });
+    if (!calendar) {
+      calendar = new Calendar({ user: userId });
+    }
+
+    for (let i = 0; i < notes.length; i++) {
+      const date = new Date(notes[i].date);
+      const shortMonth = date.toLocaleString("default", { month: "short" });
+      if(!notes[i].isCounted){
+        calendar[shortMonth] += 1;
+        notes[i].isCounted = true;
+
+        await notes[i].save();
+      }
+    }
+
+    await calendar.save();
+    res.status(200).json({message:"successful", response:calendar});
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+    console.log(err.message)
+  }
+});
+
 
 module.exports = router;
