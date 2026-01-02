@@ -45,7 +45,7 @@ const Input = ({setShowNotes}) => {
   };
 
   return (
-    <div className="w-screen md:w-auto mt-5 relative flex items-center justify-center bg-linear-to-br from-pink-100 to-pink-300">
+    <div className="w-screen md:w-auto mt-5 z-60 relative flex items-center justify-center bg-linear-to-br from-pink-100 to-pink-300">
       <form
         onSubmit={handleSubmit}
         className="bg-white/25 absolute top-0 backdrop-blur-xl shadow-xl rounded-2xl p-6 w-[90%] sm:w-100 space-y-4 border border-white/30"

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../../api";
 
-const Calendar = () => {
+const Calendar = ({functionClick}) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -24,34 +24,41 @@ const Calendar = () => {
   if (!data) return <p className="text-center mt-4">Loading...</p>;
 
   const months = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
 
   return (
     <>
-      {/* Background Overlay: Only visible on mobile */}
-      <div className="fixed inset-0 bg-black/40 z-40 sm:hidden" />
+      <div className="fixed inset-0 bg-black/40 z-40 sm:hidden" onClick={functionClick} />
 
       <div
         className="
           fixed z-50 
-          /* Mobile: Bottom Sheet style */
           bottom-0 left-0 right-0 
           rounded-t-3xl 
-          /* Desktop: Floating Card style */
           sm:absolute sm:top-20 sm:right-10 sm:left-auto sm:bottom-auto
           sm:w-80 sm:rounded-2xl 
-          /* Common Styles */
           bg-white shadow-2xl p-6
         "
       >
-        {/* Handle for mobile visual cue */}
-        <div className="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-4 sm:hidden" />
+        <div className="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-4 sm:hidden"/>
 
-        <h2 className="text-lg sm:text-xl font-extrabold text-gray-800 text-center mb-6">
-          Notes by Month
-        </h2>
+        <div>
+          <h2 className="text-lg sm:text-xl font-extrabold text-gray-800 text-center mb-6">
+            Notes by Month
+          </h2>
+        </div>
 
         <div className="grid grid-cols-3 gap-3 sm:gap-4">
           {months.map((m) => (
