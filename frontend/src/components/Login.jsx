@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { api } from "./../api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const Login = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     userName: "",
     password: "",
@@ -35,10 +37,12 @@ const Login = () => {
         withCredentials:true,
       });
       console.log(res.data);
-      localStorage.setItem("token", res.data.token)
+      localStorage.setItem("token", res.data.token);
+      toast.success("Logged in successfully.")
       navigate('/notes')
     } catch (err) {
       console.error(err.response?.data || err.message);
+      toast.error(err.response?.data || err.message)
     }
   };
 
